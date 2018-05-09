@@ -23,7 +23,8 @@ class Single extends  React.Component {
             title: '',
             content: '',
             image: '',
-            loading: false
+            loading: false,
+            noResult: false
 
         }
 
@@ -37,7 +38,6 @@ class Single extends  React.Component {
         })
 
         this.props = nextProps;
-        console.log(nextProps)
 
         this.handleData()
     }
@@ -93,12 +93,16 @@ class Single extends  React.Component {
                     image: '',
                     loading: false
                 })
-                if(!res){
+                if( res.data.length == 0 ) {
                     this.setState({
-
-                        loading:true
+                      noResult: true
+                    })
+                }else {
+                    this.setState({
+                        noResult: false
                     })
                 }
+
 
 
             })
@@ -113,16 +117,17 @@ class Single extends  React.Component {
             //console.log(this.state.acf)
             const single = this.state.acf
             single_data = Object.keys( single ).map( igKey => {
-            console.log(single[igKey])
+           // console.log(single[igKey])
             if(single[igKey].title.rendered === ''){
                return <h1>No match</h1>
             }
             return (
 
-                <div>
+                <div className="result-img">
 
+
+                    <img className="img-responsive" src={single[igKey].acf.background.sizes.medium_large} alt=""/>
                     <h4>{single[igKey].title.rendered} </h4>
-                    <img src={single[igKey].acf.background.sizes.medium_large} alt=""/>
 
 
                 </div>
@@ -137,11 +142,23 @@ class Single extends  React.Component {
         }else {
             spinner = ''
         }
+let msg
+        if(this.state.noResult) {
+
+           msg = <h1>No match! please choose different wood or color</h1>
+        }else {
+                msg =''
+        }
 
         return (
             <section className="wrapper animsitionx" id="page">
                 {spinner}
                 {single_data}
+                {msg}
+
+
+
+
 
             </section>
         )

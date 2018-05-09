@@ -53,7 +53,7 @@ class Pages extends Component {
                     loading: false
                 })
 
-               // console.log(res)
+              //  console.log(res)
 
             })
         const allWoods = fetch(internalWoodURL)
@@ -84,10 +84,10 @@ class Pages extends Component {
         this.setState({
             slug_wood: w,
         })
-        console.log(this.state.slug_wood)
-        console.log(this.state.slug_style)
+       // console.log(this.state.slug_wood)
+        //console.log(this.state.slug_style)
         return single_data =  <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
-        console.log(single_data)
+        //console.log(single_data)
     }
 
 
@@ -121,13 +121,15 @@ class Pages extends Component {
              s = this.state.styles
              w = this.state.woods
             styles =  Object.keys( s ).map( (style)=> {
-               // console.log(s[style].name)
-                s_a =  s_a.concat(s[style].slug)
+
+                s_a =  s_a.concat(s[style].slug.acf)
 
                 return (
 
-
-                        <button onClick={()=> this.setS(s[style].slug)}> <h2>{s[style].name}</h2></button>
+                    <div className="filter filter-style">
+                        <button  onClick={()=> this.setS(s[style].slug)}><img src={s[style].acf.rest_api ? s[style].acf.rest_api.url : s[style].acf.overview_page_image.url} alt="" width="60"/></button>
+                        <span >{s[style].name}</span>
+                    </div>
 
                 )
             })
@@ -135,11 +137,14 @@ class Pages extends Component {
 
             woods =  Object.keys( w ).map( (wood, key)=> {
                 w_a = w_a.concat(w[wood].slug)
-              //  console.log(w_slug)
+                console.log(w[wood].acf.overview_page_image)
                 return (
+                <div  className="menu-item" onClick={()=> this.setW(w[wood].slug)}>
+                    <img src={w[wood].acf.overview_page_image.sizes.thumbnail } alt="" width="40"/>
+
+                </div>
 
 
-                        <button onClick={()=> this.setW(w[wood].slug)}> <h2>{w[wood].name}</h2></button>
 
                 )
             })
@@ -155,26 +160,41 @@ class Pages extends Component {
         }
 
         //console.log(this.state.slug_style)
+        let className
+        if(this.state.loading){
+             className = "small-12 medium-12 large-12 column text-center"
+        }else{
+            className = "small-8 medium-8 large-8 column text-center"
+        }
 
         return (
-            <div>
-                <h1>Internal Doors</h1><br/>
-                {l}
-                {/* doors */}
-                <hr/>
-                <h1>All styles {this.state.slug_style}</h1><br/>
-                {styles}
-                <hr/>
-                <h1>All woods {this.state.slug_wood}</h1><br/>
+            <div className="internal-doors">
+                <div className="row">
 
-                {woods}
-                <hr/>
+                    <h1 className="text-center">Internal Doors</h1><br/>
+                    <div className="small-2 medium-2 large-2 column">
+                        {styles}
+                    </div>
+                    <div className={className}>
+                        <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
+                    </div>
+                    <div className="small-2 medium-2 large-2 column">
+                        <nav className="menu">
+                            <input type="checkbox"  className="menu-open" name="menu-open" id="menu-open"/>
+                            <label className="menu-open-button" for="menu-open">
+                                Woods
+                            </label>
+                            {woods}
 
-                <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
 
+                        </nav>
+
+                    </div>
+                </div>
 
 
             </div>
+
         )
     }
 }
