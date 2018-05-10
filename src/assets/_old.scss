@@ -1,5 +1,5 @@
 .filter {
-  padding: 10px;
+
   width: 50px;
   height: 50px;
   position: relative;
@@ -35,8 +35,21 @@
   cursor: pointer;
 }
 .result-img {
-  max-width: 400px;
+
   margin: auto;
+}
+.menu-icon {
+  position: fixed;
+  top: 1%;
+  left: 7%;
+}
+.heart-icon {
+  position: fixed;
+  bottom: 15%;
+  right: 10%;
+}
+.row {
+  margin-top: 50px;
 }
 /*
   * Gooey start
@@ -116,7 +129,9 @@ $hamburger-spacing:8px;
   }
 }
 .menu{
-
+  height: 75vh;
+  max-width: 113px;
+  margin: auto;
 }
 
 
@@ -145,16 +160,32 @@ $hamburger-spacing:8px;
   width: 80px;
   height: 80px;
 }
-.menu-open-button:hover{
+#menu-open-button:hover{
   transform:scale(1.2,1.2) translate3d(0,0,0);
 }
-.menu-open:checked+.menu-open-button{
+#menu-open:checked+.menu-wood-button{
   transition-timing-function:linear;
   transition-duration:200ms;
   transform:scale(0.8,0.8) translate3d(0,0,0);
 }
 
-.menu-open:checked~.menu-item{
+.menu-open:checked~.wood-item{
+  transition-timing-function:cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  @for $i from 1 through $menu-items{
+
+    &:nth-child(#{$i+2}){
+      transition-duration:90ms+(100ms*$i);
+      transform:translate3d(0,50px*$i,0);
+    }
+  }
+}
+#menu-open-2:checked+.menu-style-button{
+  transition-timing-function:linear;
+  transition-duration:200ms;
+  transform:scale(0.8,0.8) translate3d(0,0,0);
+}
+
+#menu-open-2:checked~.style-item{
   transition-timing-function:cubic-bezier(0.165, 0.840, 0.440, 1.000);
   @for $i from 1 through $menu-items{
 
@@ -178,7 +209,7 @@ $hamburger-spacing:8px;
 
 .row {
   margin: 0 auto;
-  max-width: 79.5rem;
+
   width: 100%;
   box-sizing: border-box;
   &:before {

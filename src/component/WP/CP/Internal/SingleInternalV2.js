@@ -9,8 +9,10 @@ import SecondCarousel from '../../Blocks/SecondCarousel'
 import TwoCol from '../../Blocks/TwoCol'
 import axios from 'axios'
 
+
 let spinner
 let single_data
+
 class Single extends  React.Component {
     constructor() {
         super();
@@ -33,13 +35,14 @@ class Single extends  React.Component {
 
 
     componentWillReceiveProps(nextProps)  {
-        this.setState({
+      /*  this.setState({
             loading: true
-        })
+        })*/
 
         this.props = nextProps;
 
         this.handleData()
+
     }
 
 
@@ -64,24 +67,25 @@ class Single extends  React.Component {
     componentDidMount () {
         this.handleData()
 
+
     }
     handleData =() => {
 
         const url      = window.location.href;
-        const getStyle = this.props.style;
+
 
         //const getStyle = this.props.match.params.style;
         //const getWood  = this.props.match.params.wood;
-        const getWood  = this.props.wood;
 
 
-        let dataURL = SITE_ROOT+'/wp-json/wp/v2/internal-doors?filter[woods]='+getWood+'&filter[styles]='+getStyle;
+
+       /* let dataURL = SITE_ROOT+'/wp-json/wp/v2/internal-doors?filter[woods]='+getWood+'&filter[styles]='+getStyle;
 
         axios.get(dataURL)
             .then(res => {
 
-               // let img = res.data[0]._embedded['wp:featuredmedia'] ? res.data[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'http://via.placeholder.com/350x150';
-              //  console.log(res.data)
+                // let img = res.data[0]._embedded['wp:featuredmedia'] ? res.data[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'http://via.placeholder.com/350x150';
+                //  console.log(res.data)
                 this.setState({
                     single: res.data,
                     acf: res.data,
@@ -95,7 +99,7 @@ class Single extends  React.Component {
                 })
                 if( res.data.length == 0 ) {
                     this.setState({
-                      noResult: true
+                        noResult: true
                     })
                 }else {
                     this.setState({
@@ -108,31 +112,38 @@ class Single extends  React.Component {
             })
             .catch(error => {
                 console.log(error)
-            })
+            })*/
 
     }
 
 
     render() {
-            //console.log(this.state.acf)
-            const single = this.state.acf
-            single_data = Object.keys( single ).map( igKey => {
-           // console.log(single[igKey])
-            if(single[igKey].title.rendered === ''){
-               return <h1>No match</h1>
+        let getStyle = [this.props.style];
+        let getWood  = [this.props.wood];
+
+
+       //console.log(getStyle + '='+ getWood)
+        const single = pageURL
+        single_data = Object.keys( single ).map( igKey => {
+          //  console.log(single[igKey].internal_doors_style )
+            if(  JSON.stringify(getStyle) === JSON.stringify(single[igKey].internal_doors_style) && JSON.stringify(getWood) === JSON.stringify(single[igKey].internal_doors_wood) ){
+                console.log(single[igKey].acf.background.filename)
+               /* let i = import('../../../../D_Internal'+single[igKey].acf.background.filename)
+                console.log(i)*/
+
+                return (
+
+                    <div className="result-img" key={single[igKey].id}>
+
+
+                        <img className="img-responsive" src={single[igKey].acf.background.url} alt=""/>
+                        <h4>{single[igKey].title.rendered} </h4>
+
+
+                    </div>
+
+                )
             }
-            return (
-
-                <div className="result-img">
-
-
-                    <img className="img-responsive" src={single[igKey].acf.background.sizes.medium_large} alt=""/>
-                    <h4>{single[igKey].title.rendered} </h4>
-
-
-                </div>
-
-            )
 
 
         })
@@ -142,12 +153,12 @@ class Single extends  React.Component {
         }else {
             spinner = ''
         }
-let msg
+        let msg
         if(this.state.noResult) {
 
-           msg = <h1>No match! please choose different wood or color</h1>
+            msg = <h1>No match! please choose different wood or color</h1>
         }else {
-                msg =''
+            msg =''
         }
 
         return (

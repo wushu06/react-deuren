@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Spinner from '../../../Layout/Spinner';
 import { SITE_ROOT, FORM_GET, FORM_POST, pageURL, singleURL, internalStyleURL, internalWoodURL  } from '../../../Inc/Inc'
-import SingleInternal  from './SingleInternal'
+import SingleInternal  from './SingleInternalV2'
+import MenuIcon from '../../../../assets/menu.svg'
+import  HeartIcon from '../../../../assets/heart.svg'
 
 let single_data
 class Pages extends Component {
@@ -12,8 +14,8 @@ class Pages extends Component {
             doors: [],
             styles: [],
             woods: [],
-            slug_style: 'gio',
-            slug_wood: 'rosewood',
+            slug_style: 150,
+            slug_wood: 151,
             show: false,
             single: true,
             loading: false
@@ -30,9 +32,10 @@ class Pages extends Component {
         this.setState({
             loading: true
         })
-
+        console.log(this.props.location.pathname)
       //  let pageURL = SITE_ROOT+"/wp-json/wp/v2/internal-doors?filter[styles]=gio";
-       const allDoors = fetch(pageURL)
+     //   console.log(pageURL)
+       /*const allDoors = fetch(pageURL)
             .then(res => res.json())
             .then(res => {
                 //  let img = res._embedded['wp:featuredmedia'] ? res._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'http://via.placeholder.com/350x150';
@@ -44,7 +47,7 @@ class Pages extends Component {
 
                 //console.log(res)
 
-            });
+            });*/
         const allStyles = fetch(internalStyleURL)
             .then(res => res.json())
             .then(res => {
@@ -108,7 +111,7 @@ class Pages extends Component {
         if(this.state.loading){
             single_data = <Spinner/>
         }else{
-            doors =  this.state.doors.map( (page, key)=> {
+            doors =  pageURL.map( (page, key)=> {
 
                 return (
                     <div>
@@ -126,20 +129,22 @@ class Pages extends Component {
 
                 return (
 
-                    <div className="filter filter-style">
-                        <button  onClick={()=> this.setS(s[style].slug)}><img src={s[style].acf.rest_api ? s[style].acf.rest_api.url : s[style].acf.overview_page_image.url} alt="" width="60"/></button>
-                        <span >{s[style].name}</span>
-                    </div>
+
+                        <div key={s[style].id}  className="menu-item style-item" onClick={()=> this.setS(s[style].id)}>
+                            <img src={s[style].acf.rest_api ? s[style].acf.rest_api.url : s[style].acf.overview_page_image.url}alt="" width="40"/>
+
+                        </div>
+
 
                 )
             })
 
 
             woods =  Object.keys( w ).map( (wood, key)=> {
-                w_a = w_a.concat(w[wood].slug)
-                console.log(w[wood].acf.overview_page_image)
+                w_a = w_a.concat(w[wood].id)
+                //console.log(w[wood].id)
                 return (
-                <div  className="menu-item" onClick={()=> this.setW(w[wood].slug)}>
+                <div key={w[wood].id}  className="menu-item wood-item" onClick={()=> this.setW(w[wood].id)}>
                     <img src={w[wood].acf.overview_page_image.sizes.thumbnail } alt="" width="40"/>
 
                 </div>
@@ -169,25 +174,41 @@ class Pages extends Component {
 
         return (
             <div className="internal-doors">
+                <div className="menu-icon">
+                    <img src={MenuIcon} alt="" width="40"/>
+                </div>
+                <div className="heart-icon">
+                    <img src={HeartIcon} alt="" width="40"/>
+                </div>
                 <div className="row">
+
 
                     <h1 className="text-center">Internal Doors</h1><br/>
                     <div className="small-2 medium-2 large-2 column">
-                        {styles}
+                        <nav className="menu">
+                            <input type="checkbox"  className="menu-open" name="menu-open-2" id="menu-open-2"/>
+                            <label className="menu-open-button menu-style-button" for="menu-open-2">
+                                Styles
+                            </label>
+                            {styles}
+
+
+                        </nav>
+
                     </div>
                     <div className={className}>
                         <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
                     </div>
                     <div className="small-2 medium-2 large-2 column">
-                        <nav className="menu">
+                        <div className="menu">
                             <input type="checkbox"  className="menu-open" name="menu-open" id="menu-open"/>
-                            <label className="menu-open-button" for="menu-open">
+                            <label className="menu-open-button menu-wood-button" for="menu-open">
                                 Woods
                             </label>
                             {woods}
 
 
-                        </nav>
+                        </div>
 
                     </div>
                 </div>

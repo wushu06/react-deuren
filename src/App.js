@@ -7,7 +7,7 @@ import Pages from './component/WP/Pages/Pages'
 import PageSingle from './component/WP/Pages/Single/Single'
 import PostSingle from './component/WP/Posts/Single'
 
-import PostInternal from './component/WP/CP/Internal/SingleInternal'
+import PostInternal from './component/WP/CP/Internal/SingleInternalV2'
 import ArchiveInternal from './component/WP/CP/Internal/ArchiveStyles'
 import PageInteranl from './component/WP/CP/Internal/PageInternal'
 import InternalWoods from './component/WP/CP/Internal/InternalWoods'
