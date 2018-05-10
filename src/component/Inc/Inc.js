@@ -1,10 +1,14 @@
 import AllDoors from '../WP/CP/Internal/allDoors.json'
+import AllSTYLES from '../WP/CP/Internal/allStyles.json'
+import AllWOODS from '../WP/CP/Internal/allWoods.json'
 const SITE_ROOT = 'https://www.deuren.co.uk'
 const pageURL = AllDoors;
 const singleURL = SITE_ROOT+"/wp-json/wp/v2/internal-doors?slug=";
 
-const internalStyleURL = SITE_ROOT+"/wp-json/wp/v2/internal_doors_style/?per_page=20";
-const internalWoodURL = SITE_ROOT+"/wp-json/wp/v2/internal_doors_wood/?per_page=20";
+const internalStyleURL = AllSTYLES
+//const internalStyleURL = SITE_ROOT+"/wp-json/wp/v2/internal_doors_style/?per_page=20";
+const internalWoodURL = AllWOODS
+//const internalWoodURL = SITE_ROOT+"/wp-json/wp/v2/internal_doors_wood/?per_page=20";
 
 
 

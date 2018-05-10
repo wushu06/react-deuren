@@ -29,26 +29,11 @@ class Pages extends Component {
     }
 
     componentDidMount() {
-        this.setState({
+       /* this.setState({
             loading: true
-        })
-        console.log(this.props.location.pathname)
-      //  let pageURL = SITE_ROOT+"/wp-json/wp/v2/internal-doors?filter[styles]=gio";
-     //   console.log(pageURL)
-       /*const allDoors = fetch(pageURL)
-            .then(res => res.json())
-            .then(res => {
-                //  let img = res._embedded['wp:featuredmedia'] ? res._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'http://via.placeholder.com/350x150';
-                this.setState({
-                    doors: res,
-                    loading: false
+        })*/
 
-                })
-
-                //console.log(res)
-
-            });*/
-        const allStyles = fetch(internalStyleURL)
+        /*const allStyles = fetch(internalStyleURL)
             .then(res => res.json())
             .then(res => {
                 this.setState({
@@ -69,7 +54,7 @@ class Pages extends Component {
 
                // console.log(res)
 
-            })
+            })*/
 
 
     }
@@ -121,11 +106,15 @@ class Pages extends Component {
                 )
             })
 
-             s = this.state.styles
-             w = this.state.woods
-            styles =  Object.keys( s ).map( (style)=> {
 
-                s_a =  s_a.concat(s[style].slug.acf)
+            //s = this.state.styles
+            s = internalStyleURL
+            // w = this.state.woods
+            w = internalWoodURL
+
+            styles =  Object.keys( s ).map( (style)=> {
+               // console.log(s[style].slug)
+                s_a =  s_a.concat(s[style].acf.rest_api)
 
                 return (
 

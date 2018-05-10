@@ -8,10 +8,15 @@ import HeroCarousel from '../../Blocks/HeroCarousel'
 import SecondCarousel from '../../Blocks/SecondCarousel'
 import TwoCol from '../../Blocks/TwoCol'
 import axios from 'axios'
+import Test from './test'
 
 
 let spinner
 let single_data
+let title
+let image
+
+const single = pageURL
 
 class Single extends  React.Component {
     constructor() {
@@ -25,6 +30,7 @@ class Single extends  React.Component {
             title: '',
             content: '',
             image: '',
+            img: '',
             loading: false,
             noResult: false
 
@@ -34,119 +40,95 @@ class Single extends  React.Component {
     }
 
 
-    componentWillReceiveProps(nextProps)  {
-      /*  this.setState({
-            loading: true
-        })*/
 
-        this.props = nextProps;
-
-        this.handleData()
-
-    }
 
 
     componentDidUpdate (prevProps, prevState) {
-        // console.log(this.state.single.slug)
-        // console.log(prevState.slug)
 
-        if (prevState === this.state.single) {
 
-            return false;
+        if (prevState.img === this.state.img  ) {
+           // console.log('dont')
         }else {
 
-
+           // console.log('res')
 
         }
+
         //this.handleData()
 
 
 
+
     }
 
+
     componentDidMount () {
-        this.handleData()
+        this.fff()
+
 
 
     }
     handleData =() => {
 
-        const url      = window.location.href;
 
 
-        //const getStyle = this.props.match.params.style;
-        //const getWood  = this.props.match.params.wood;
-
-
-
-       /* let dataURL = SITE_ROOT+'/wp-json/wp/v2/internal-doors?filter[woods]='+getWood+'&filter[styles]='+getStyle;
-
-        axios.get(dataURL)
-            .then(res => {
-
-                // let img = res.data[0]._embedded['wp:featuredmedia'] ? res.data[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url : 'http://via.placeholder.com/350x150';
-                //  console.log(res.data)
-                this.setState({
-                    single: res.data,
-                    acf: res.data,
-                    id: res.data.id,
-                    type: res.data.type,
-                    slug:   getStyle,
-                    title: '',
-                    content:'',
-                    image: '',
-                    loading: false
-                })
-                if( res.data.length == 0 ) {
-                    this.setState({
-                        noResult: true
-                    })
-                }else {
-                    this.setState({
-                        noResult: false
-                    })
-                }
-
-
-
-            })
-            .catch(error => {
-                console.log(error)
-            })*/
+       // console.log('real='+image+' ||st|| '+this.state.img)
 
     }
 
+    fff = () => {
 
-    render() {
         let getStyle = [this.props.style];
         let getWood  = [this.props.wood];
-
-
-       //console.log(getStyle + '='+ getWood)
-        const single = pageURL
         single_data = Object.keys( single ).map( igKey => {
-          //  console.log(single[igKey].internal_doors_style )
+            //  console.log(single[igKey].internal_doors_style )
             if(  JSON.stringify(getStyle) === JSON.stringify(single[igKey].internal_doors_style) && JSON.stringify(getWood) === JSON.stringify(single[igKey].internal_doors_wood) ){
-                console.log(single[igKey].acf.background.filename)
-               /* let i = import('../../../../D_Internal'+single[igKey].acf.background.filename)
-                console.log(i)*/
-
-                return (
-
-                    <div className="result-img" key={single[igKey].id}>
+                //console.log(single[igKey].acf.background.filename)
 
 
-                        <img className="img-responsive" src={single[igKey].acf.background.url} alt=""/>
-                        <h4>{single[igKey].title.rendered} </h4>
 
 
-                    </div>
 
-                )
+                return  image = single[igKey].acf.background.filename,
+                    title = single[igKey].title.rendered
+
             }
 
 
         })
+        import('../../../../D_Internal/'+image)
+            .then(someModule =>{
+                this.setState({
+                    img: someModule
+                })
+
+            })
+            .catch(error => {
+                this.setState({
+                    img: ''
+                })
+            })
+
+    }
+
+    componentWillReceiveProps(nextProp)  {
+        /*  this.setState({
+         loading: true
+         })*/
+        nextProp = this.props
+        this.fff()
+
+
+
+
+
+
+    }
+    render() {
+
+
+
+
 
         if(this.state.loading) {
             spinner = <Spinner/>
@@ -164,6 +146,7 @@ class Single extends  React.Component {
         return (
             <section className="wrapper animsitionx" id="page">
                 {spinner}
+                <img src={this.state.img} alt=""/>
                 {single_data}
                 {msg}
 
