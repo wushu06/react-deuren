@@ -8,14 +8,12 @@ import HeroCarousel from '../../Blocks/HeroCarousel'
 import SecondCarousel from '../../Blocks/SecondCarousel'
 import TwoCol from '../../Blocks/TwoCol'
 import axios from 'axios'
-import Test from './test'
 
 
 let spinner
 let single_data
 let title
 let image
-
 const single = pageURL
 
 class Single extends  React.Component {
@@ -25,6 +23,8 @@ class Single extends  React.Component {
             single: [],
             acf: [],
             slug:'',
+            props_s: 150,
+            props_w: 151,
             id:'',
             type: '',
             title: '',
@@ -46,116 +46,87 @@ class Single extends  React.Component {
     componentDidUpdate (prevProps, prevState) {
 
 
-        if (prevState.img === this.state.img  ) {
-           // console.log('dont')
-        }else {
-
-           // console.log('res')
-
-        }
-
-        //this.handleData()
-
-
-
-
     }
 
 
     componentDidMount () {
-        this.fff()
-
 
 
     }
-    handleData =() => {
 
 
 
-       // console.log('real='+image+' ||st|| '+this.state.img)
+    componentWillReceiveProps(nextProp)  {
 
     }
+    // not in use
+    importAll(r) {
+        return r.keys().map(r);
+    }
 
-    fff = () => {
+    render() {
+
 
         let getStyle = [this.props.style];
         let getWood  = [this.props.wood];
+       /* let images = []
+            images = this.importAll(require.('../../../../D_Internal/',  /\.(png|jpe?g|svg)$/));*/
+
+
         single_data = Object.keys( single ).map( igKey => {
-            //  console.log(single[igKey].internal_doors_style )
+
             if(  JSON.stringify(getStyle) === JSON.stringify(single[igKey].internal_doors_style) && JSON.stringify(getWood) === JSON.stringify(single[igKey].internal_doors_wood) ){
-                //console.log(single[igKey].acf.background.filename)
+                //console.log(single[igKey].acf)
 
-
-
-
-
-                return  image = single[igKey].acf.background.filename,
+                    image = single[igKey].acf.background.filename,
                     title = single[igKey].title.rendered
+                let graphImage
+                let result
+                try {
+                    // a path we KNOW is totally bogus and not a module
+                    graphImage = require('../../../../assets/images/' + image)
+
+                   // console.log(graphImage)
+                    result = <div>
+                        <img className="img-responsive result-img" src={graphImage} alt=""/>
+                            <h4>{title} </h4>
+                        </div>
+
+                }
+                catch (e) {
+                    console.log('oh no big error')
+                    console.log(e)
+                   result =    <h4>No match </h4>
+                }
+                if(!result){
+                        console.log('em')
+                }
+                return (
+                    <div>
+                        {result}
+                    </div>
+
+
+                )
+
+
 
             }
 
 
         })
-        import('../../../../D_Internal/'+image)
-            .then(someModule =>{
-                this.setState({
-                    img: someModule
-                })
-
-            })
-            .catch(error => {
-                this.setState({
-                    img: ''
-                })
-            })
-
-    }
-
-    componentWillReceiveProps(nextProp)  {
-        /*  this.setState({
-         loading: true
-         })*/
-        nextProp = this.props
-        this.fff()
 
 
 
-
-
-
-    }
-    render() {
-
-
-
-
-
-        if(this.state.loading) {
-            spinner = <Spinner/>
-        }else {
-            spinner = ''
-        }
-        let msg
-        if(this.state.noResult) {
-
-            msg = <h1>No match! please choose different wood or color</h1>
-        }else {
-            msg =''
-        }
 
         return (
-            <section className="wrapper animsitionx" id="page">
-                {spinner}
-                <img src={this.state.img} alt=""/>
+            <div>
                 {single_data}
-                {msg}
+            </div>
 
-
-
-
-
-            </section>
         )
+
+
     }
 }
 export default Single;

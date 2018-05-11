@@ -1,16 +1,13 @@
 .filter {
-
-  width: 50px;
-  height: 50px;
   position: relative;
-  margin: auto;
 }
 .filter button {
   background: transparent;
 
 }
-.filter.filter-wood button img {
+.filter.filter-wood img {
   border-radius: 50%;
+
 }
 .filter span {
   display: none;
@@ -18,24 +15,30 @@
   background: white;
   padding: 5px;
   top: 0;
-  right: -143%;
+  right: -200%;
+  color: black;
+  height: auto;
+  width: 100px;
+  line-height: 19px;
 }
-.filter:hover span {
+.filter-wood span {
+  display: none;
+  position: absolute;
+  background: white;
+  padding: 5px;
+  top: 0;
+  color: black;
+  height: auto;
+  width: 100px;
+  line-height: 19px;
+  left: -100px !important;
+}
+.filter:hover span , .filter-wood:hover span{
   display: block !important;
 }
-.filter img {
-  width: 100%;
-  height: auto;
-}
-.filter button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border-color: transparent;
-  cursor: pointer;
-}
-.result-img {
 
+.result-img {
+  max-height: 75vh;
   margin: auto;
 }
 .menu-icon {
@@ -64,7 +67,7 @@ $bg:#673ab7;
 $pi:3.14;
 
 //config
-$menu-items:10;
+$menu-items:20;
 $open-distance:105px;
 $opening-angle:$pi*2;
 

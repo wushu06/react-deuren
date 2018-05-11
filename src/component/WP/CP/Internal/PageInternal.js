@@ -5,8 +5,14 @@ import { SITE_ROOT, FORM_GET, FORM_POST, pageURL, singleURL, internalStyleURL, i
 import SingleInternal  from './SingleInternalV2'
 import MenuIcon from '../../../../assets/menu.svg'
 import  HeartIcon from '../../../../assets/heart.svg'
+import styled from 'styled-components'
+import CircleFilter from './FilterCircles'
 
 let single_data
+let color = '#ff0'
+
+
+
 class Pages extends Component {
     constructor() {
         super();
@@ -17,6 +23,7 @@ class Pages extends Component {
             slug_style: 150,
             slug_wood: 151,
             show: false,
+            color: '#ff0',
             single: true,
             loading: false
 
@@ -64,18 +71,23 @@ class Pages extends Component {
 
         this.setState({
             slug_style: s,
+
+
         })
+
         single_data =  <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
     }
     setW = (w) => {
-
+        color = '#b2a074'
         this.setState({
             slug_wood: w,
+            color: '#b2a074'
         })
        // console.log(this.state.slug_wood)
         //console.log(this.state.slug_style)
         return single_data =  <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
         //console.log(single_data)
+
     }
 
 
@@ -93,6 +105,15 @@ class Pages extends Component {
         let s_a = []
         let l
 
+
+        const Circle = styled('div')({
+           display: 'none',
+
+            background:'green !important',
+
+        })
+
+
         if(this.state.loading){
             single_data = <Spinner/>
         }else{
@@ -108,44 +129,42 @@ class Pages extends Component {
 
 
             //s = this.state.styles
-            s = internalStyleURL
+           // s = internalStyleURL
             // w = this.state.woods
             w = internalWoodURL
 
-            styles =  Object.keys( s ).map( (style)=> {
+            /*styles =  Object.keys( s ).map( (style)=> {
                // console.log(s[style].slug)
                 s_a =  s_a.concat(s[style].acf.rest_api)
 
                 return (
 
 
-                        <div key={s[style].id}  className="menu-item style-item" onClick={()=> this.setS(s[style].id)}>
+                        <Circle  key={s[style].id}  className="menu-item filter style-item" id={s[style].id}  onClick={()=> this.setS(s[style].id )}>
                             <img src={s[style].acf.rest_api ? s[style].acf.rest_api.url : s[style].acf.overview_page_image.url}alt="" width="40"/>
-
-                        </div>
+                            <span className="span">{s[style].name}</span>
+                        </Circle>
 
 
                 )
             })
+*/
 
-
-            woods =  Object.keys( w ).map( (wood, key)=> {
+           /* woods =  Object.keys( w ).map( (wood, key)=> {
                 w_a = w_a.concat(w[wood].id)
                 //console.log(w[wood].id)
                 return (
-                <div key={w[wood].id}  className="menu-item wood-item" onClick={()=> this.setW(w[wood].id)}>
+                <Circle key={w[wood].id}  className="menu-item wood-item filter-wood" onClick={()=> this.setW(w[wood].id)}>
                     <img src={w[wood].acf.overview_page_image.sizes.thumbnail } alt="" width="40"/>
-
-                </div>
+                    <span className="span">{w[wood].name}</span>
+                </Circle>
 
 
 
                 )
-            })
+            })*/
         }
-        w_a.map(i => {
-            //console.log(i)
-        })
+
 
 
         if(this.state.single === true) {
@@ -173,7 +192,7 @@ class Pages extends Component {
 
 
                     <h1 className="text-center">Internal Doors</h1><br/>
-                    <div className="small-2 medium-2 large-2 column">
+                    {/*<div className="small-2 medium-2 large-2 column">
                         <nav className="menu">
                             <input type="checkbox"  className="menu-open" name="menu-open-2" id="menu-open-2"/>
                             <label className="menu-open-button menu-style-button" for="menu-open-2">
@@ -184,11 +203,12 @@ class Pages extends Component {
 
                         </nav>
 
-                    </div>
-                    <div className={className}>
+                    </div>*/}
+                    <CircleFilter ww={this.state.slug_wood} ss={this.state.slug_style}/>
+                   {/* <div className={className}>
                         <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
-                    </div>
-                    <div className="small-2 medium-2 large-2 column">
+                    </div>*/}
+                   {/* <div className="small-2 medium-2 large-2 column">
                         <div className="menu">
                             <input type="checkbox"  className="menu-open" name="menu-open" id="menu-open"/>
                             <label className="menu-open-button menu-wood-button" for="menu-open">
@@ -199,7 +219,7 @@ class Pages extends Component {
 
                         </div>
 
-                    </div>
+                    </div>*/}
                 </div>
 
 

@@ -10,6 +10,15 @@ import TwoCol from '../../Blocks/TwoCol'
 import SingleInternal from './SingleInternal';
 import axios from 'axios'
 
+
+/*
+
+  =================
+  NOT IN USE - FOR REFRENCE ONLY
+  =================
+
+
+ */
 let spinner
 let single_data
 let s_data =''

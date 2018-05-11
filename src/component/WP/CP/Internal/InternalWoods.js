@@ -10,6 +10,15 @@ import TwoCol from '../../Blocks/TwoCol'
 import axios from 'axios'
 import Slider from 'react-slick'
 
+/*
+
+  =================
+  NOT IN USE - FOR REFRENCE ONLY
+  =================
+
+
+ */
+
 let spinner
 let single_data
 class Single extends  React.Component {
