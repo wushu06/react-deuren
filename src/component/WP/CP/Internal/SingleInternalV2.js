@@ -44,19 +44,41 @@ class Single extends  React.Component {
 
 
     componentDidUpdate (prevProps, prevState) {
+        console.log('prev= '+prevState.title)
+        console.log('cur '+title)
+        if(prevState.title !== title){
 
+            this.props.h.push({
+
+                search: '?'+title.replace(/\s/g, '-')
+            });
+
+        }
 
     }
 
 
     componentDidMount () {
+        this.setState({
+            title: title
+        })
+        this.props.h.push({
 
+            search: '?'+title.replace(/\s/g, '-')
+        });
 
     }
 
 
 
-    componentWillReceiveProps(nextProp)  {
+    componentWillReceiveProps(nextProps)  {
+        this.setState({
+            title: title
+        })
+        if(this.state.title === title){
+
+        }
+
 
     }
     // not in use
@@ -76,7 +98,6 @@ class Single extends  React.Component {
         single_data = Object.keys( single ).map( igKey => {
 
             if(  JSON.stringify(getStyle) === JSON.stringify(single[igKey].internal_doors_style) && JSON.stringify(getWood) === JSON.stringify(single[igKey].internal_doors_wood) ){
-                //console.log(single[igKey].acf)
 
                     image = single[igKey].acf.background.filename,
                     title = single[igKey].title.rendered
@@ -85,7 +106,6 @@ class Single extends  React.Component {
                 try {
                     // a path we KNOW is totally bogus and not a module
                     graphImage = require('../../../../assets/images/' + image)
-
                    // console.log(graphImage)
                     result = <div>
                         <img className="img-responsive result-img" src={graphImage} alt=""/>
@@ -95,7 +115,7 @@ class Single extends  React.Component {
                 }
                 catch (e) {
                     console.log('oh no big error')
-                    console.log(e)
+                   // console.log(e)
                    result =    <h4>No match </h4>
                 }
                 if(!result){
@@ -115,9 +135,6 @@ class Single extends  React.Component {
 
 
         })
-
-
-
 
         return (
             <div>

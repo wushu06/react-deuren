@@ -8,7 +8,6 @@ import PageSingle from './component/WP/Pages/Single/Single'
 import PostSingle from './component/WP/Posts/Single'
 
 import PostInternal from './component/WP/CP/Internal/SingleInternalV2'
-import Test from './component/WP/CP/Internal/Test'
 import ArchiveInternal from './component/WP/CP/Internal/ArchiveStyles'
 import PageInteranl from './component/WP/CP/Internal/PageInternal'
 import InternalWoods from './component/WP/CP/Internal/InternalWoods'
@@ -37,7 +36,6 @@ class App extends Component {
 
 
 
-          <Route path="/test" component={Test}/>
         <Route path="/page-internal" component={PageInteranl}/>
         <Route path="/single-internal/:style/:wood" component={PostInternal}/>
         <Route path="/archive-internal/:slug" component={ArchiveInternal}/>

@@ -4,7 +4,6 @@ import Spinner from '../../../Layout/Spinner';
 import { SITE_ROOT, FORM_GET, FORM_POST, pageURL, singleURL, internalStyleURL, internalWoodURL  } from '../../../Inc/Inc'
 import SingleInternal  from './SingleInternalV2'
 import MenuIcon from '../../../../assets/menu.svg'
-import  HeartIcon from '../../../../assets/heart.svg'
 import styled from 'styled-components'
 import CircleFilter from './FilterCircles'
 
@@ -36,32 +35,6 @@ class Pages extends Component {
     }
 
     componentDidMount() {
-       /* this.setState({
-            loading: true
-        })*/
-
-        /*const allStyles = fetch(internalStyleURL)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    styles: res,
-                    loading: false
-                })
-
-              //  console.log(res)
-
-            })
-        const allWoods = fetch(internalWoodURL)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    woods: res,
-                    loading: false
-                })
-
-               // console.log(res)
-
-            })*/
 
 
     }
@@ -90,7 +63,8 @@ class Pages extends Component {
 
     }
 
-
+    componentWillMount () {
+    }
     render() {
 
         let doors
@@ -185,9 +159,7 @@ class Pages extends Component {
                 <div className="menu-icon">
                     <img src={MenuIcon} alt="" width="40"/>
                 </div>
-                <div className="heart-icon">
-                    <img src={HeartIcon} alt="" width="40"/>
-                </div>
+
                 <div className="row">
 
 
@@ -204,7 +176,7 @@ class Pages extends Component {
                         </nav>
 
                     </div>*/}
-                    <CircleFilter ww={this.state.slug_wood} ss={this.state.slug_style}/>
+                    <CircleFilter ww={this.state.slug_wood} ss={this.state.slug_style} history={this.props}/>
                    {/* <div className={className}>
                         <SingleInternal wood={this.state.slug_wood} style={ this.state.slug_style}/>
                     </div>*/}
