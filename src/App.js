@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, browserHistroy} from 'react-router'
+import {Route, Router, browserHistroy} from 'react-router'
 import Users from './component/Users/Users'
 import Profile from './component/Profile/Profile'
 import Posts from './component/WP/Posts/Posts'
@@ -12,13 +12,12 @@ import ArchiveInternal from './component/WP/CP/Internal/ArchiveStyles'
 import PageInteranl from './component/WP/CP/Internal/PageInternal'
 import InternalWoods from './component/WP/CP/Internal/InternalWoods'
 import InternalStyles from './component/WP/CP/Internal/InternalStyles'
-
+import createHistory from 'history/createBrowserHistory'
 import Home from './component/Home/Home'
 import Header from './component/Header/Header'
 import './assets/App.scss';
 import AllWoods from './component/WP/CP/Internal/ArchiveWoods'
 import AllStyles from './component/WP/CP/Internal/ArchiveStyles'
-
 
 class App extends Component {
   render() {
@@ -26,26 +25,8 @@ class App extends Component {
       <div className="App">
 
 
+             <Route path={`${process.env.PUBLIC_URL}/`} exact component={PageInteranl}/>
 
-
-        <Route path="/" exact component={PageInteranl}/>
-        <Route path="/users" component={Users}/>
-        <Route path="/profile" component={Profile}/>
-        <Route path="/posts" component={Posts}/>
-        <Route path="/pages" component={Pages}/>
-
-
-
-        <Route path="/page-internal" component={PageInteranl}/>
-        <Route path="/single-internal/:style/:wood" component={PostInternal}/>
-        <Route path="/archive-internal/:slug" component={ArchiveInternal}/>
-        <Route path="/internal-woods/:slug" component={InternalWoods}/>
-        <Route path="/internal-styles/:slug" component={InternalStyles}/>
-
-
-
-        <Route path="/page-single/:id" component={PageSingle}/>
-        <Route path="/post-single/:id" component={PostSingle}/>
       </div>
     );
   }
